@@ -35,9 +35,9 @@ export default Em.Component.extend({
         return 'form';
     }
   }),
-  //isDefaultLayout: Utils.createBoundSwitchAccessor('form', 'form_layout', 'form'),
-  //isInline: Utils.createBoundSwitchAccessor('inline', 'form_layout', 'form'),
-  //isHorizontal: Utils.createBoundSwitchAccessor('horizontal', 'form_layout', 'form'),
+  isDefaultLayout: Utils.createBoundSwitchAccessor('form', 'form_layout', 'form'),
+  isInline: Utils.createBoundSwitchAccessor('inline', 'form_layout', 'form'),
+  isHorizontal: Utils.createBoundSwitchAccessor('horizontal', 'form_layout', 'form'),
   action: 'submit',
   model: void 0,
   form_layout: 'form',
