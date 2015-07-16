@@ -87,6 +87,6 @@ export default Em.Component.extend(InFormMixin, HasPropertyMixin, HasPropertyVal
   Listen to the focus out of the form group and display the errors
    */
   focusOut: function() {
-    return this.set('canShowErrors', true);
+    return this.set('canShowErrors', !!this.get('validations'));
   }
 });
