@@ -1,6 +1,5 @@
 import Em from 'ember';
 import FormGroupComponent from './group';
-import ControlMixin from 'ember-idx-forms/mixins/control';
 
 /*
 Form Input
@@ -9,13 +8,7 @@ Syntax:
 {{em-text property="property name" rows=4}}
  */
 export default FormGroupComponent.extend({
-  controlView: Em.TextArea.extend(ControlMixin, {
-    attributeBindings: ['placeholder'],
-    placeholder: Em.computed.alias('parentView.placeholder'),
-    model: Em.computed.alias('parentView.model'),
-    propertyName: Em.computed.alias('parentView.propertyName'),
-    rows: Em.computed.alias('parentView.rows')
-  }),
+  controlView: 'ember-form-controls/text',
   property: void 0,
   label: void 0,
   placeholder: void 0,

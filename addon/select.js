@@ -1,6 +1,5 @@
 import Em from 'ember';
 import FormGroupComponent from './group';
-import ControlMixin from 'ember-idx-forms/mixins/control';
 
 /*
 Form Select
@@ -17,15 +16,7 @@ Syntax:
  */
 export default FormGroupComponent.extend({
   v_icons: false,
-  controlView: Em.Select.extend(ControlMixin, {
-    model: Em.computed.alias('parentView.model'),
-    propertyName: Em.computed.alias('parentView.propertyName'),
-    content: Em.computed.alias('parentView.content'),
-    optionValuePath: Em.computed.alias('parentView.optionValuePath'),
-    optionLabelPath: Em.computed.alias('parentView.optionLabelPath'),
-    prompt: Em.computed.alias('parentView.prompt'),
-    multiple: Em.computed.alias('parentView.multiple')
-  }),
+  controlView: 'ember-form-controls/select',
   propertyIsModel:false,
   property: void 0,
   content: void 0,
