@@ -22,6 +22,10 @@ export default Em.Mixin.create({
   }),
   init: function() {
     this._super();
-    return Em.Binding.from('model.errors.' + this.get('propertyName')).to('errors').connect(this);
+    this.addObserver('model.errors.' + this.get('propertyName') + '.@each.message', this, 'errorsChanged');
+    this.errorsChanged();
+  },
+  errorsChanged: function(){
+    this.set('errors', this.get('model.errors.' + this.get('propertyName')));
   }
 });

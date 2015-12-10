@@ -12,9 +12,9 @@ Syntax:
 {{em-form-control-help}}
  */
 export default Em.Component.extend(InFormMixin, {
-  tagName: 'span',
+  tagName: 'div',
   classNames: ['help-block'],
-  classNameBindings: ['extraClass', 'horiClassCalc'],
+  classNameBindings: ['extraClass', 'horiClassCalc', 'hidden'],
   text: void 0,
   extraClass: void 0,
   horiClass: 'col-sm-offset-2 col-sm-10',
@@ -23,12 +23,25 @@ export default Em.Component.extend(InFormMixin, {
       return this.get('horiClass');
     }
   }),
+  hidden: Ember.computed.not('helpText'),
   init: function() {
     this._super();
-    return Em.Binding.from('model.errors.' + this.get('parentView.propertyName')).to('errors').connect(this);
+    this.addObserver('model.errors.' + this.get('parentView.propertyName') + '.@each.message', this, 'errorsChanged');
+    this.errorsChanged();
   },
-  helpText: Em.computed('text', 'errors.firstObject', function() {
-    return this.get('errors.firstObject.message') || this.get('errors.firstObject') || this.get('text');
+  errorsChanged: function(){
+    this.set('errors', this.get('model.errors.' + this.get('parentView.propertyName')));
+  },
+  helpText: Em.computed('text', 'errors', 'errors.[]', 'errors.@each.message', function() {
+    if(this.get('errors.length')){
+      var text = '';
+      this.get('errors').forEach(function(error){
+        text += (text.length ? '<br/>' : '') + (error.message ? error.message : error);
+      });
+      return text;
+    }else{
+      return this.get('text');
+    }
   }),
   hasHelp: Em.computed('helpText', function() {
     var _ref;

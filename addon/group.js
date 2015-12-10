@@ -31,13 +31,14 @@ export default Em.Component.extend(InFormMixin, HasPropertyMixin, HasPropertyVal
   layoutName: 'components/em-form-group',
   classNameBindings: ['class', 'hasSuccess', 'hasWarning', 'hasError', 'v_icons:has-feedback'],
   attributeBindings: ['disabled'],
-  canShowErrors: false,
-  canShowErrorsObserver: Em.observer('form', 'form.model', function() {
-    this.set('canShowErrors', false);
-  }),
-  hasSuccess: Em.computed('status', 'canShowErrors', function() {
+  canShowErrors: true,
+  //canShowErrorsObserver: Em.observer('form', 'form.model', function() {
+  //  this.set('canShowErrors', false);
+  //}),
+  showSuccess: Em.computed.alias('form.showSuccess'),
+  hasSuccess: Em.computed('status', 'canShowErrors', 'showSuccess', function() {
     var success;
-    success = this.get('validations') && this.get('status') === 'success' && this.get('canShowErrors');
+    success = this.get('validations') && this.get('status') === 'success' && this.get('canShowErrors') && this.get('showSuccess');
     this.set('success', success);
     return success;
   }),
@@ -54,18 +55,18 @@ export default Em.Component.extend(InFormMixin, HasPropertyMixin, HasPropertyVal
     return error;
   }),
   v_icons: Em.computed.alias('form.v_icons'),
-  v_success_icon: 'fa fa-check',
-  v_warn_icon: 'fa fa-exclamation-triangle',
-  v_error_icon: 'fa fa-times',
+  v_success_icon: 'glyphicon glyphicon-ok',
+  v_warn_icon: 'glyphicon glyphicon-alert',
+  v_error_icon: 'glyphicon glyphicon-remove',
   validations: true,
   yieldInLabel: false,
-  v_icon: Em.computed('status', 'canShowErrors', function() {
+  v_icon: Em.computed('status', 'canShowErrors', 'showSuccess', function() {
     if (!this.get('canShowErrors')) {
       return;
     }
     switch (this.get('status')) {
       case 'success':
-        return this.get('v_success_icon');
+        return this.get('showSuccess') ? this.get('v_success_icon') : null;
       case 'warning':
       case 'warn':
         return this.get('v_warn_icon');

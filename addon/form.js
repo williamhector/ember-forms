@@ -41,9 +41,9 @@ export default Em.Component.extend({
   action: 'submit',
   model: void 0,
   form_layout: 'form',
-  submit_button: true,
+  submit_button: false,
   v_icons: true,
-
+  showSuccess: false,
   /*
   Form submit
   
