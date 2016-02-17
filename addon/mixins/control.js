@@ -5,6 +5,7 @@ Mixin that should be applied for all controls
  */
 export default Em.Mixin.create({
   classNameBindings: ['class'],
+  attributeBindings: ['name'],
   "class": 'form-control',
   init: function() {
     this._super();
@@ -17,6 +18,7 @@ export default Em.Mixin.create({
     }
     
   },
+  name: Em.computed.alias('parentView.name'),
   hasValue: Em.computed('value', function() {
     return this.get('value') !== null;
   }).readOnly()
