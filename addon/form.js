@@ -38,7 +38,6 @@ export default Em.Component.extend({
   isDefaultLayout: Utils.createBoundSwitchAccessor('form', 'form_layout', 'form'),
   isInline: Utils.createBoundSwitchAccessor('inline', 'form_layout', 'form'),
   isHorizontal: Utils.createBoundSwitchAccessor('horizontal', 'form_layout', 'form'),
-  action: 'submit',
   model: void 0,
   form_layout: 'form',
   submit_button: false,
@@ -55,13 +54,13 @@ export default Em.Component.extend({
       e.preventDefault();
     }
     if (Em.isNone(this.get('model.validate'))) {
-      return this.get('targetObject').send(this.get('action'));
+      return this.get('targetObject').sendAction();
     } else {
       promise = this.get('model').validate();
       return promise.then((function(_this) {
         return function() {
           if (_this.get('model.isValid')) {
-            return _this.get('targetObject').send(_this.get('action'));
+            return _this.get('targetObject').sendAction();
           }
         };
       })(this));
