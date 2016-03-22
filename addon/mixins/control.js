@@ -12,7 +12,7 @@ export default Em.Mixin.create({
 
     var propertyIsModel = this.get('parentView.propertyIsModel');
     if(propertyIsModel) {
-    	return Em.Binding.from("model" + '.' + (this.get('propertyName')) + '.content').to('selection').connect(this); 
+    	return Em.Binding.from("model" + '.' + (this.get('propertyName'))).to('selection').connect(this); 
     } else {
     	return Em.Binding.from("model" + '.' + (this.get('propertyName'))).to('value').connect(this);    	
     }

@@ -17,7 +17,7 @@ Syntax:
 export default FormGroupComponent.extend({
   v_icons: false,
   controlView: 'ember-form-controls/select',
-  propertyIsModel:false,
+  propertyIsModel:true,
   property: void 0,
   content: void 0,
   optionValuePath: void 0,
