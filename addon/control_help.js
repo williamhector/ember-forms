@@ -30,7 +30,7 @@ export default Em.Component.extend(InFormMixin, {
     this.errorsChanged();
   },
   errorsChanged: function(){
-    this.set('errors', this.get('model.errors.' + this.get('parentView.propertyName')));
+    this.set('errors', this.get('model.errors') ? this.get('model.errors').errorsFor(this.get('parentView.propertyName')) : null);
   },
   helpText: Em.computed('text', 'errors', 'errors.[]', 'errors.@each.message', function() {
     if(this.get('errors.length')){

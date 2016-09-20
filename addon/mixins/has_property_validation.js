@@ -11,11 +11,11 @@ export default Em.Mixin.create({
   init: function() {
     this._super();
     Em.assert(!Em.isNone(this.get('propertyName')), 'propertyName is required.');
-    this.addObserver('model.errors.' + this.get('propertyName') + '.@each.message', this, 'errorsChanged');
+	this.addObserver('model.errors.' + this.get('propertyName') + '.@each.message', this, 'errorsChanged');
     this.errorsChanged();
   },
   errorsChanged: function(){
-    this.set('errors', this.get('model.errors.' + this.get('propertyName')));
+    this.set('errors', this.get('model.errors') ? this.get('model.errors').errorsFor(this.get('propertyName')) : null);
   },
   status: Em.computed('errors', 'errors.length', function() {
     if (this.get('errors.length')) {
